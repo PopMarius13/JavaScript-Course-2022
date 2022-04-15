@@ -13,8 +13,8 @@ function createAndWriteLog(operator, resultBeforeCalc, calcNumber) {
   outputResult(currentResult, calculationDescription) // from vendor.js file
 }
 
-function writeToLog(operationIdentifier, prevResult, 
-                    operationNumber,newResult) {
+function writeToLog(operationIdentifier, prevResult,
+  operationNumber, newResult) {
   const logEntry = {
     operation: operationIdentifier,
     prevResult: prevResult,
@@ -23,40 +23,43 @@ function writeToLog(operationIdentifier, prevResult,
   }
   logEntries.push(logEntry)
   console.log(logEntry.number)
-  console.log(logEntries)  
-  
+  console.log(logEntries)
+
 }
 
-function add() {
+function calculateResult(calculationType) {
   const enteredNumber = getUserNumberInput()
   const initialResult = currentResult
-  currentResult += parseInt(enteredNumber)
+  if (calculationType === 'ADD') {
+    currentResult += enteredNumber
+  } else if (calculationType === 'SUB') {
+    currentResult -= enteredNumber
+  } else if (calculationType === 'MUL') {
+    currentResult *= enteredNumber
+  } else if (calculationType === 'DIV') {
+    currentResult /= enteredNumber
+  } else {
+    console.log("The calculationType is wrong!!!")
+  }
+
   createAndWriteLog('+', initialResult, enteredNumber)
   writeToLog('ADD', initialResult, enteredNumber, currentResult)
 }
 
+function add() {
+  calculateResult('ADD');
+}
+
 function subtract() {
-  const enteredNumber = getUserNumberInput()
-  const initialResult = currentResult
-  currentResult -= parseInt(enteredNumber)
-  createAndWriteLog('-', initialResult, enteredNumber)
-  writeToLog('SUB', initialResult, enteredNumber, currentResult)
+  calculateResult('SUB');
 }
 
 function multiply() {
-  const enteredNumber = getUserNumberInput()
-  const initialResult = currentResult
-  currentResult *= parseInt(enteredNumber)
-  createAndWriteLog('*', initialResult, enteredNumber)
-  writeToLog('MUL', initialResult, enteredNumber, currentResult)
+  calculateResult('MUL');
 }
 
 function divide() {
-  const enteredNumber = getUserNumberInput()
-  const initialResult = currentResult
-  currentResult /= parseInt(enteredNumber)
-  createAndWriteLog('/', initialResult, enteredNumber)
-  writeToLog('DIV', initialResult, enteredNumber, currentResult)
+  calculateResult('DIV');
 }
 
 addBtn.addEventListener('click', add)
