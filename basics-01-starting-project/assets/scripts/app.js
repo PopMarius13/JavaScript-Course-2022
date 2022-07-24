@@ -28,22 +28,33 @@ function writeToLog(operationIdentifier, prevResult,
 }
 
 function calculateResult(calculationType) {
+  if (calculationType !== 'ADD' && 
+  calculationType !== 'SUB' && 
+  calculationType !== 'MUL' && 
+  calculationType !== 'DIV' || enteredNumber) {
+    return;
+  }
+  
   const enteredNumber = getUserNumberInput()
   const initialResult = currentResult
+  let mathOperator
+  
   if (calculationType === 'ADD') {
     currentResult += enteredNumber
+    mathOperator = '+'
   } else if (calculationType === 'SUB') {
     currentResult -= enteredNumber
+    mathOperator = '-'
   } else if (calculationType === 'MUL') {
     currentResult *= enteredNumber
+    mathOperator = '*'
   } else if (calculationType === 'DIV') {
     currentResult /= enteredNumber
-  } else {
-    console.log("The calculationType is wrong!!!")
+    mathOperator = '/'
   }
 
-  createAndWriteLog('+', initialResult, enteredNumber)
-  writeToLog('ADD', initialResult, enteredNumber, currentResult)
+  createAndWriteLog(mathOperator, initialResult, enteredNumber)
+  writeToLog(calculationType, initialResult, enteredNumber, currentResult)
 }
 
 function add() {
