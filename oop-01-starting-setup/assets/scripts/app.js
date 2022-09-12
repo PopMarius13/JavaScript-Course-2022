@@ -68,14 +68,15 @@ class ProductItem extends Component {
 }
 
 class ProductList extends Component {
-
+    #products = []
     constructor(hookId) {
-        super(hookId)
+        super(hookId, false)
+        this.render()
         this.fetchProducts()
     }
 
     fetchProducts() {
-        this.products = [
+        this.#products = [
             new Product(
                 'A Pillow',
                 'https://eh-ro.akinoncdn.com/products/2022/04/11/217190/1e62d400-1a55-4c15-b7f6-24e81e34bc0a_size365x273_cropCenter.jpg',
@@ -93,7 +94,7 @@ class ProductList extends Component {
     }
 
     renderProducts() {
-        for (const prod of this.products) {
+        for (const prod of this.#products) {
             new ProductItem(prod, 'prod-list')
         }
     }
@@ -102,7 +103,7 @@ class ProductList extends Component {
         this.createRootElement('ul', 'product-list',
             [new ElementAttribute('id', 'prod-list')]
         )
-        if (this.products && this.products.length > 0) {
+        if (this.#products && this.#products.length > 0) {
             this.renderProducts()
         }
     }
